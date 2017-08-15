@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration >
+    
+	<!--读取配置文件 -->
+    <properties resource="config.properties"/>
+    
+    <classPathEntry location="${driver.location}" />
+    
+    <context id="orders_generator" >
+	    
+	    <!--忽略warning -->
+	    <property name="suppressTypeWarnings" value="true" />
+	    
+	    <!--配置插件start-->
+	    <!-- <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin" /> -->
+	    <!-- <plugin type="org.mybatis.generator.plugins.CaseInsensitiveLikePlugin" /> -->
+	    <plugin type="${plugin.pager}"/>
+	    <plugin type="${plugin.serializable}"/>
+	  <!--  <plugin type="${plugin.superClass}">
+	       <property name="addSuperClass" value="${plugin.superClass.addSuperClass}" />
+           <property name="superClass" value="${plugin.superClass.class}" />
+	    </plugin>-->
+       <!-- <plugin type="${plugin.renameExample}">
+            <property name="searchString" value="${plugin.renameExample.searchString}" />
+            <property name="replaceString" value="${plugin.renameExample.replaceString}" />
+        </plugin> -->
+        <!--配置插件end-->
+        
+        <!--忽略注释 -->
+	    <commentGenerator>  
+	    	<property name="suppressAllComments" value="true" />
+	    </commentGenerator>  
+	    
+	    <!--数据库链接 -->
+	    <jdbcConnection driverClass="${connection.driver}" connectionURL="${connection.url}" userId="${connection.user}" password="${connection.passwd}" />
+	    
+	    <!--类型转换 -->
+	    <javaTypeResolver type="${javaTypeResolver.tinyintToInteger}"/>
+	    
+	    <!--model类配置 -->
+	    <javaModelGenerator targetPackage="${target.package.model}" targetProject="${target.project.model}">
+	       <property name="trimStrings" value="true"/>  
+	    </javaModelGenerator>
+    
+    	<!--Mapper接口配置-->
+	    <sqlMapGenerator targetPackage="${target.package.map}" targetProject="${target.project.map}" />
+	    
+	    <!--MapperXML配置 -->
+	    <javaClientGenerator targetPackage="${target.package.client}" targetProject="${target.project.client}" type="XMLMAPPER" />
+	    
+		<!--table列表 start-->
+        <table schema="" tableName="orders" domainObjectName = "OrdersReadOnly">
+        	 <generatedKey column="id" sqlStatement="MySql" />
+        </table> 
+	    <!--table列表 end-->
+    </context>
+</generatorConfiguration>
